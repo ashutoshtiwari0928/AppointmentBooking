@@ -24,6 +24,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment bookAppointment(AppointmentRequest appointmentRequest) {
+        if(appointmentRequest.getTimeUpto().isBefore(appointmentRequest.getTimeFrom()))
+            throw new IllegalStateException("Time from should not be before time upto");
         Patient patient = patientRepository.findById(appointmentRequest.getId())
                 .orElseThrow(() -> new IllegalStateException("No such patient"));
 
