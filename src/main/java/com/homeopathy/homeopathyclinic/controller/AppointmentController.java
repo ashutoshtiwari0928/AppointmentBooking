@@ -28,7 +28,7 @@ public class AppointmentController {
         }
         catch (IllegalStateException e){
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.CONFLICT).
-                    body("There was a class between the selected slot and booked slots.");
+                    body(e.getMessage());
         }
     }
     @GetMapping("/patients/{id}")
