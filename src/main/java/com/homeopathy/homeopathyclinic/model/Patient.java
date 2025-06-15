@@ -10,8 +10,8 @@ public class Patient {
     private Long id;
     private String name;
     private String email;
+//    private String password;
     private String phone;
-
     public Long getId() {
         return id;
     }
@@ -27,4 +27,12 @@ public class Patient {
     public String getPhone() {
         return phone;
     }
+
+//    public String getPassword() {
+//        return password;
+//    }
+
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 }
