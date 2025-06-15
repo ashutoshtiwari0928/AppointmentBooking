@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Component
 public class AppointmentRequest {
@@ -12,6 +11,7 @@ public class AppointmentRequest {
     private LocalDate date;
     private LocalTime timeFrom;
     private LocalTime timeUpto;
+    private Boolean booked;
     private String reason;
 
     public Long getId() {
@@ -32,5 +32,9 @@ public class AppointmentRequest {
 
     public LocalTime getTimeUpto() {
         return timeUpto;
+    }
+
+    public Boolean getBooked() {
+        return booked;
     }
 }

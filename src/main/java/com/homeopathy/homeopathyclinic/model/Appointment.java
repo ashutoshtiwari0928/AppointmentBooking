@@ -1,10 +1,7 @@
 package com.homeopathy.homeopathyclinic.model;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.NotFound;
 import org.springframework.lang.NonNull;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -23,6 +20,7 @@ public class Appointment {
     private LocalTime timeFrom;
     @NonNull
     private LocalTime timeUpto;
+    private Boolean booked;
     private String reason;
 
     public Appointment() {
@@ -73,5 +71,13 @@ public class Appointment {
 
     public void setTimeUpto(LocalTime timeUpto) {
         this.timeUpto = timeUpto;
+    }
+
+    public Boolean getBooked() {
+        return booked;
+    }
+
+    public void setBooked(Boolean booked) {
+        this.booked = booked;
     }
 }
