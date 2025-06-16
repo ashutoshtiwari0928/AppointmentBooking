@@ -6,15 +6,20 @@ import com.homeopathy.homeopathyclinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
-public class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl implements PatientService, UserDetailsService {
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Patient> getAllPatients() {
@@ -22,8 +27,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient getPatientById(Long id) {
-        return patientRepository.getReferenceById(id);
+    public Patient getPatientByEmail(String email) throws UsernameNotFoundException {
+        return patientRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("No such user"));
     }
 
     @Override
@@ -33,6 +39,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient addNewPatient(Patient patient){
+        patient.setPassword(passwordEncoder.encode(patient.getPassword()));
         return patientRepository.save(patient);
     }
 
@@ -42,8 +49,8 @@ public class PatientServiceImpl implements PatientService {
                 .orElseThrow(() -> new UsernameNotFoundException("Could not find username"));
         return User.builder()
                 .username(patient.getEmail())
-//                .password(patient.getPassword())
-                .roles("PATIENT")
+                .password((patient.getPassword()))
+                .roles("USER")
                 .build();
     }
 

@@ -14,9 +14,7 @@ public class AppointmentRequest {
     private Boolean booked;
     private String reason;
 
-    public Long getId() {
-        return id;
-    }
+
 
     public LocalDate getDate() {
         return date;
@@ -36,5 +34,9 @@ public class AppointmentRequest {
 
     public Boolean getBooked() {
         return booked;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
