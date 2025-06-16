@@ -1,5 +1,7 @@
 package com.homeopathy.homeopathyclinic.security;
 
+import com.homeopathy.homeopathyclinic.service.impl.PatientServiceImpl;
+import com.homeopathy.homeopathyclinic.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
@@ -35,38 +37,26 @@ import java.util.Iterator;
 @EnableWebSecurity
 public class SecutiryConfig {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           DaoAuthenticationProvider daoAuthenticationProvider)
+            throws Exception{
         http
+                .authenticationProvider(daoAuthenticationProvider)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/patients/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
-
     @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails user1 = User
-                .withUsername("Ashutosh")
-                .password(passwordEncoder().encode("Tiwari"))
-                .roles("USER")
-                .build();
-        UserDetails user2 = User
-                .withUsername("Shakila")
-                .password(passwordEncoder().encode("Tiwari"))
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1,user2);
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
-//    @Bean
-//    public AuthenticationProvider authenticationProvider(){
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService());
-//        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-//        return provider;
-//    }
 
 //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {
