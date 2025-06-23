@@ -1,7 +1,3 @@
-Here's a professional `README.md` file for your **Appointment Booking System** project based on standard GitHub practices. You can modify it to fit exactly what your project does if required:
-
----
-
 # Appointment Booking System
 
 An **Appointment Booking System** built with **Spring Boot** (backend) and **React.js** (frontend) for seamless appointment scheduling and management. Ideal for clinics, service providers, or any business that requires managing appointments efficiently.
@@ -91,9 +87,3 @@ appointment-booking/
 ## 📧 Contact
 
 Maintained by [Ashutosh Tiwari](https://github.com/ashutoshtiwari0928)
-
-For any queries or contributions, feel free to raise an issue or contact.
-
----
-
-Let me know if you want a **`readme.txt`** file version or want to adjust/add project-specific details (like API routes or architecture diagrams).
