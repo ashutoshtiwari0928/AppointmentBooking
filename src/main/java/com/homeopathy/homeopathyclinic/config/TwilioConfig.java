@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties
 public class TwilioConfig {
-    @Value("${twilio.accountSid}")
+
     private String accountSid;
-    @Value("${twilio.authToken}")
+
     private String authToken;
     private String phoneNumber;
     @PostConstruct
