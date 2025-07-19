@@ -18,10 +18,15 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private PatientRepository patientRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Patient patient = patientRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        return new UserPrincipal(patient);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+        Optional<Patient> patient = patientRepository.findByEmail(email);
+        if(patient.isEmpty()){
+            System.out.println("User not found");
+            throw new UsernameNotFoundException("user not found");
+        }
+        return new UserPrincipal(patient.get().getEmail(),patient.get().getPassword());
     }
+
 }

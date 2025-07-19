@@ -111,7 +111,7 @@ warning: in the working copy of 'src/main/resources/application.properties', LF 
 [1m--- a/src/main/java/com/homeopathy/homeopathyclinic/security/SecutiryConfig.java[m
 [1m+++ b/src/main/java/com/homeopathy/homeopathyclinic/security/SecutiryConfig.java[m
 [36m@@ -1,5 +1,7 @@[m
- package com.homeopathy.homeopathyclinic.security;[m
+ package com.homeopathy.homeopathyclinic.config;[m
  [m
 [32m+[m[32mimport com.homeopathy.homeopathyclinic.service.impl.PatientServiceImpl;[m
 [32m+[m[32mimport com.homeopathy.homeopathyclinic.service.impl.UserDetailsServiceImpl;[m

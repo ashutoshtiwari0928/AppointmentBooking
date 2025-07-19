@@ -14,8 +14,6 @@ public class AppointmentRequest {
     private Boolean booked;
     private String reason;
 
-
-
     public LocalDate getDate() {
         return date;
     }

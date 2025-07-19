@@ -34,13 +34,9 @@ public class AppointmentController {
                     body(e.getMessage());
         }
     }
-    @GetMapping("/patients/{id}")
-    public List<Appointment> showAppointmentById(@PathVariable Long id){
-        return appointmentService.getAppointmentByPatient(id);
-    }
-    @DeleteMapping("/patients/{id}")
-    public void cancelAppointment(@PathVariable Long id){
-        appointmentService.cancelAppointment(id);
+    @GetMapping("/patients/{email}")
+    public List<Appointment> showAppointmentByEmail(@PathVariable String email){
+        return appointmentService.getAppointmentByEmail(email);
     }
 
     @PostMapping("/default/{date}")

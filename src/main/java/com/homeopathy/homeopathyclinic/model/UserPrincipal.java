@@ -5,17 +5,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
-    private final Patient patient;
+    private final String email;
+    private final String password;
+    @Autowired
+    Patient patient;
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public UserPrincipal(Patient patient) {
-        this.patient = patient;
+    public UserPrincipal(String email,String password) {
+        this.email = email;
+        this.password = password;
     }
 
     @Override
@@ -25,12 +30,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return patient.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return patient.getEmail();
+        return email;
     }
 
     @Override
@@ -52,4 +57,5 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+
 }

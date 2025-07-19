@@ -33,6 +33,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                         && (appointmentRequest.getTimeUpto().equals(appointment.getTimeUpto()))
                 ){
                     appointment.setBooked(true);
+
                     appointment.setPatient(patientRepository.getReferenceById(appointmentRequest.getId()));
                     appointment.setReason(appointmentRequest.getReason());
                     appointmentRepo.save(appointment);
@@ -46,13 +47,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     private boolean isOverlap(LocalTime start1, LocalTime end1, LocalTime start2, LocalTime end2) {
         return (start1.isBefore(end2) && end1.isAfter(start2));
     }
-
     @Override
-    public List<Appointment> getAppointmentByPatient(Long patientId) {
+    public List<Appointment> getAppointmentByEmail(String email) {
         return appointmentRepo.findAll()
                 .stream()
-                .filter(a -> a.getPatient().getId().equals(patientId))
-                .collect(Collectors.toList());
+                .filter(a -> a.getPatient().getEmail().equals(email))
+                .toList();
     }
 
     @Override
@@ -85,6 +85,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> getUnbookedSlots(LocalDate date) {
         return appointmentRepo.findByDate(date).stream().filter(appointment -> !appointment.getBooked()).toList();
     }
+
+
 
     public void add40minutesSlots(LocalDate date, LocalTime timeFrom,LocalTime timeUpto){
         for(LocalTime time=timeFrom;!time.isAfter(timeUpto);time=time.plusMinutes(45)){
