@@ -1,35 +1,38 @@
 package com.homeopathy.homeopathyclinic.model;
 
+import com.homeopathy.homeopathyclinic.model.Doctor.Doctor;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 @Entity
+@Table(
+        name = "appointment",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"id"})
+        }
+)
 public class Appointment {
     @Id
     @GeneratedValue
     private Long id;
-
-    @ManyToOne
-    private Patient patient;
-
     @NonNull
     private LocalDate date;
     @NonNull
     private LocalTime timeFrom;
     @NonNull
     private LocalTime timeUpto;
-    private Boolean booked;
+    private Boolean status;
     private String reason;
-
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
     public Appointment() {
-    }
-
-
-
-    public Patient getPatient() {
-        return patient;
     }
 
     public LocalDate getDate() {
@@ -49,9 +52,6 @@ public class Appointment {
         this.id = id;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
 
     public void setDate(LocalDate date) {
         this.date = date;
@@ -73,11 +73,23 @@ public class Appointment {
         this.timeUpto = timeUpto;
     }
 
-    public Boolean getBooked() {
-        return booked;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setBooked(Boolean booked) {
-        this.booked = booked;
+    public void setStatus(Boolean booked) {
+        this.status = booked;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

@@ -39,7 +39,8 @@ public class securityConfig {
                                 "/api/patients/login",
                                 //"/api/patients/sendEmail",
                                 "/api/otp/send",
-                                "/api/patients/verifyEmail").permitAll()
+                                "/login/verifyEmail",
+                                "/api/doctors/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

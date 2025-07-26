@@ -34,7 +34,7 @@ public class JWTServiceImpl {
 
     public String generateToken(String email, String password) {
         Map<String,Object> claims = new HashMap<>();
-        String jwtToken =  Jwts.builder()
+        return Jwts.builder()
                 .claims()
                 .add(claims)
                 .subject(email)
@@ -43,7 +43,6 @@ public class JWTServiceImpl {
                 .and()
                 .signWith(getKey())
                 .compact();
-        return jwtToken;
     }
 
 

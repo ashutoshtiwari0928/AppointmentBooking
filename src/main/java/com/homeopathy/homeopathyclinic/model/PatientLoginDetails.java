@@ -5,12 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserPrincipal implements UserDetails {
+public class PatientLoginDetails implements UserDetails {
     private final String email;
     private final String password;
     @Autowired
@@ -18,7 +17,7 @@ public class UserPrincipal implements UserDetails {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public UserPrincipal(String email,String password) {
+    public PatientLoginDetails(String email, String password) {
         this.email = email;
         this.password = password;
     }

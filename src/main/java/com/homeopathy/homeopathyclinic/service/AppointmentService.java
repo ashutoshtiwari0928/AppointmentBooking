@@ -9,12 +9,8 @@ import java.util.List;
 public interface AppointmentService {
 
     Appointment bookAppointment(AppointmentRequest appointmentRequest);
-    void cancelAppointment(Long appointmentId);
     List<Appointment> getAllAppointments();
     void addAppointmentsByDate(LocalDate date);
 
-    List<Appointment> getAppointmentsByDate(LocalDate date);
-    List<Appointment> getBookedSlots(LocalDate date);
-    List<Appointment> getUnbookedSlots(LocalDate date);
-    List<Appointment> getAppointmentByEmail(String email);
+
 }

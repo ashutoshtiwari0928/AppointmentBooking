@@ -32,9 +32,9 @@ public class AppointmentServiceImpl implements AppointmentService {
                 if((appointmentRequest.getTimeFrom().equals(appointment.getTimeFrom()))
                         && (appointmentRequest.getTimeUpto().equals(appointment.getTimeUpto()))
                 ){
-                    appointment.setBooked(true);
+                    appointment.setStatus(true);
 
-                    appointment.setPatient(patientRepository.getReferenceById(appointmentRequest.getId()));
+//                    appointment.setPatient(patientRepository.getReferenceById(appointmentRequest.getId()));
                     appointment.setReason(appointmentRequest.getReason());
                     appointmentRepo.save(appointment);
                     return appointment;
@@ -48,19 +48,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         return (start1.isBefore(end2) && end1.isAfter(start2));
     }
     @Override
-    public List<Appointment> getAppointmentByEmail(String email) {
-        return appointmentRepo.findAll()
-                .stream()
-                .filter(a -> a.getPatient().getEmail().equals(email))
-                .toList();
-    }
-
-    @Override
-    public void cancelAppointment(Long appointmentId) {
-        appointmentRepo.deleteById(appointmentId);
-    }
-
-    @Override
     public List<Appointment> getAllAppointments() {
         return appointmentRepo.findAll();
     }
@@ -69,21 +56,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void addAppointmentsByDate(LocalDate date) {
         add40minutesSlots(date,LocalTime.of(9,0),LocalTime.of(13,0));
         add40minutesSlots(date,LocalTime.of(14,0),LocalTime.of(18,0));
-    }
-
-    @Override
-    public List<Appointment> getAppointmentsByDate(LocalDate date) {
-        return appointmentRepo.findByDate(date);
-    }
-
-    @Override
-    public List<Appointment> getBookedSlots(LocalDate date) {
-        return appointmentRepo.findByDate(date).stream().filter(Appointment::getBooked).toList();
-    }
-
-    @Override
-    public List<Appointment> getUnbookedSlots(LocalDate date) {
-        return appointmentRepo.findByDate(date).stream().filter(appointment -> !appointment.getBooked()).toList();
     }
 
 
@@ -96,7 +68,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             appointment.setDate(date);
             appointment.setTimeFrom(start);
             appointment.setTimeUpto(end);
-            appointment.setBooked(false);
+            appointment.setStatus(false);
             appointmentRepo.save(appointment);
         }
     }

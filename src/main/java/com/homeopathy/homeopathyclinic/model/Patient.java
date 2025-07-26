@@ -3,6 +3,7 @@ package com.homeopathy.homeopathyclinic.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(
@@ -25,6 +26,8 @@ public class Patient {
     public Long getId() {
         return id;
     }
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    public List<Appointment> appointmentList;
 
 
 
@@ -68,6 +71,10 @@ public class Patient {
         return dateOfBirth;
     }
 
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -81,4 +88,5 @@ public class Patient {
                 ", role='" + role + '\'' +
                 '}';
     }
+
 }

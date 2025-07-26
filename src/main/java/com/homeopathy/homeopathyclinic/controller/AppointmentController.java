@@ -3,6 +3,7 @@ package com.homeopathy.homeopathyclinic.controller;
 import com.homeopathy.homeopathyclinic.DTO.AppointmentRequest;
 import com.homeopathy.homeopathyclinic.model.Appointment;
 import com.homeopathy.homeopathyclinic.service.AppointmentService;
+import com.twilio.rest.microvisor.v1.App;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,10 +35,7 @@ public class AppointmentController {
                     body(e.getMessage());
         }
     }
-    @GetMapping("/patients/{email}")
-    public List<Appointment> showAppointmentByEmail(@PathVariable String email){
-        return appointmentService.getAppointmentByEmail(email);
-    }
+
 
     @PostMapping("/default/{date}")
     public void addAppointmentsOnADate(@PathVariable
@@ -45,24 +43,24 @@ public class AppointmentController {
                                                    LocalDate date){
         appointmentService.addAppointmentsByDate(date);
     }
-    @GetMapping("/{date}")
-    public List<Appointment> getAppointmentsByDate(@PathVariable
-                                                       @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
-                                                               LocalDate date){
-        return appointmentService.getAppointmentsByDate(date);
-    }
-    @GetMapping("/{date}/booked")
-    public List<Appointment> getBookedAppointmentsByDate(@PathVariable
-                                                         @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
-                                                         LocalDate date){
-        return appointmentService.getBookedSlots(date);
-    }
-    @GetMapping("/{date}/unbooked")
-    public List<Appointment> getUnbookedAppointmentsByDate(@PathVariable
-                                                         @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
-                                                                 LocalDate date){
-        return appointmentService.getUnbookedSlots(date);
-    }
+//    @GetMapping("/{date}")
+//    public List<Appointment> getAppointmentsByDate(@PathVariable
+//                                                       @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+//                                                               LocalDate date){
+//        return appointmentService.getAppointmentsByDate(date);
+//    }
+//    @GetMapping("/{date}/booked")
+//    public List<Appointment> getBookedAppointmentsByDate(@PathVariable
+//                                                         @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+//                                                         LocalDate date){
+//        return appointmentService.getBookedSlots(date);
+//    }
+//    @GetMapping("/{date}/unbooked")
+//    public List<Appointment> getUnbookedAppointmentsByDate(@PathVariable
+//                                                         @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+//                                                                 LocalDate date){
+//        return appointmentService.getUnbookedSlots(date);
+//    }
 
 
 }
